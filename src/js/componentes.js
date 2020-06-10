@@ -1,6 +1,8 @@
 import { ToDo } from "../classes";
+import { todoList } from "../index";
 // Referencias en el html
 const divTodoList = document.querySelector('.todo-list'); // Clase de css todo list.
+const txtInput = document.querySelector('.new-todo');
 
 export const crearTodoHtml = (todo) =>{
     const htmlTodo = `
@@ -18,3 +20,14 @@ export const crearTodoHtml = (todo) =>{
     // a la clase de css todo-list le incrustamos el primer hijo del div creado. (li)
     return div;
 }
+
+// Eventos
+
+txtInput.addEventListener('keyup', (event)=>{
+    if(event.keyCode === 13 && txtInput.value.length > 0){
+        const nuevoTodo = new ToDo(txtInput.value);
+        todoList.nuevoTodo(nuevoTodo);
+        crearTodoHtml(nuevoTodo);
+        txtInput.value = '';
+    }
+})
